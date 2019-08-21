@@ -1,5 +1,25 @@
 #include <stdio.h>
 
+int tempo(int H1, int M1, int H2, int M2){
+    if(H2>H1)
+        return ((H2*60)+M2)-((H1*60)+M1);
+    if(H2==H1 && M1<M2)
+        return ((H2*60)+M2)-((H1*60)+M1);
+    if(H2<H1)
+        return ((H2*60)+M2)-((H1*60)+M1)+(24*60);
+    if(H2==H1 && M1>M2)
+        return ((H2*60)+M2)-((H1*60)+M1)+(24*60);
+}
+void tempoSono(){
+    int H1, M1, H2, M2;
+    while(1){
+        scanf("%d %d %d %d",&H1,&M1,&H2,&M2);
+        if(H1==0, M1==0, H2==0, M2==0)
+            break;
+        printf("%d\n",tempo(H1, M1, H2, M2));
+    }
+}
+
 int isPrimo(int val){
     int i,cont=0;
     for(i=1;i<=val;i++)
@@ -49,6 +69,7 @@ int main(){
     printf("2 - Para execicio 2 \n");
     printf("3 - Para execicio 3 \n");
     printf("4 - Para execicio 4 \n");
+    printf("Outro valor para sair \n");
     printf("---> ");
     scanf("%d",&i);
     switch(i){
@@ -59,12 +80,9 @@ int main(){
             sec_pos_primos();
             break;
         case 3:
-
+            tempoSono();
             break;
         case 4:
-
-            break;
-        case 5:
 
             break;
         default:
