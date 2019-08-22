@@ -31,7 +31,6 @@ void figurinhas(){
             return;
         printf("%d\n",mdc(f1,f2));
     }
-
 }
 
 int tempo(int H1, int M1, int H2, int M2){
