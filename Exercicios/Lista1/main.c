@@ -1,5 +1,39 @@
 #include <stdio.h>
 
+int mdc(int x, int y){
+    int i,menor,maior,div;
+    if(x<=0 && y<=0)
+        return -1;
+    if(x>y)
+        maior=x;
+    else
+        maior=y;
+    for(i=1;i<maior;i++)
+        if(x%i==0 && y%i==0)
+            div=i;
+    return div;
+}
+
+void figurinhas(){
+    int n,f1,f2,i;
+    printf("\nDigite o tamanho da sequencia: ");
+    scanf("%d",&n);
+    if(n<1 || n>3000)
+        return;
+    for(i=0;i<n;i++){
+        printf("\nDigite F1: ");
+        scanf("%d",&f1);
+        if(f1<1 || f1>1000)
+            return;
+        printf("\nDigite F2: ");
+        scanf("%d",&f2);
+        if(f2<1 || f2>1000)
+            return;
+        printf("%d\n",mdc(f1,f2));
+    }
+
+}
+
 int tempo(int H1, int M1, int H2, int M2){
     if(H2>H1)
         return ((H2*60)+M2)-((H1*60)+M1);
@@ -83,7 +117,7 @@ int main(){
             tempoSono();
             break;
         case 4:
-
+            figurinhas();
             break;
         default:
             break;
