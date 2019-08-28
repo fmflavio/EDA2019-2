@@ -1,5 +1,45 @@
 #include <stdio.h>
 
+int Q07(){
+    while(1){
+        int n,i,v,resp;
+        scanf("\n%d",&n);
+        if(n<=0 || n<2 || n>1000)
+            break;
+        int vet[n];
+        for(i=0;i<n;i++){
+            scanf("%d",&vet[n]);
+        }
+
+        printf("%d\n",resp);
+    }
+}
+
+int Q06(){
+    while(1){
+        int n,m,i,j,cont=0,contf=0;
+        printf("\nDigite N e M: ");
+        scanf("%d %d",&n, &m);
+        if(n>10000 || m>20000 || n<1 && m<1)
+            break;
+        int vet[m];
+        for(i=0;i<m;i++){
+            printf("%Digite %d de %d: ",i,m);
+            scanf("%d",&vet[i]);
+        }
+        for(i=0;i<m;i++){
+            for(j=0;j<m;j++){
+                if(vet[i]==vet[j])
+                    cont++;
+            }
+            if(cont>1)
+                contf++;
+            cont=0;
+        }
+        printf("%d\n",contf);
+    }
+}
+
 int Q05(){
     while(1){
         int n,i=0,j;
@@ -145,10 +185,10 @@ int main(){
             Q05();
             break;
         case 6:
-
+            Q06();
             break;
         case 7:
-
+            Q07();
             break;
         default:
             break;
