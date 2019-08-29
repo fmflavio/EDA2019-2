@@ -34,5 +34,7 @@ int main(){
             printf("%d ",mat[i][j]);
         printf("\n");
     }
+    for(i=0;i<l;i++)
+        free(mat[i]);
     free(mat);
 }
