@@ -22,15 +22,25 @@ int Q06(){
         scanf("%d %d",&n, &m);
         if(n>10000 || m>20000 || n<1 && m<1)
             break;
-        int vet[m],vet2[m];
+        int vet1[m],vet2[m],vet3[m];
         for(i=0;i<m;i++){
             printf("%Digite %d de %d: ",i,m);
-            scanf("%d",&vet[i]);
-            vet2[i]=vet[i];
+            scanf("%d",&vet1[i]);
+            //vet2[i]=vet1[i];
         }
         for(i=0;i<m;i++){
             for(j=0;j<m;j++){
-                if(vet[i]==vet[j]){
+                if(vet1[i]==vet1[j]){
+                    vet2[i]=vet1[i];
+
+                }
+            }
+        }
+
+        /*
+        for(i=0;i<m;i++){
+            for(j=0;j<m;j++){
+                if(vet1[i]==vet2[j]){
                     vet2[j]=-1;
                     cont++;
                 }
@@ -39,6 +49,7 @@ int Q06(){
                 contf++;
             cont=0;
         }
+        */
         printf("%d\n",contf);
     }
 }
