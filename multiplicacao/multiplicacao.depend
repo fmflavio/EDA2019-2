@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1567622082 source:c:\users\midiacom-desktop-vr\documents\github\multiplicacao\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
