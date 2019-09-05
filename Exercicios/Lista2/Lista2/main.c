@@ -36,20 +36,6 @@ int Q06(){
                 }
             }
         }
-
-        /*
-        for(i=0;i<m;i++){
-            for(j=0;j<m;j++){
-                if(vet1[i]==vet2[j]){
-                    vet2[j]=-1;
-                    cont++;
-                }
-            }
-            if(cont>1)
-                contf++;
-            cont=0;
-        }
-        */
         printf("%d\n",contf);
     }
 }
