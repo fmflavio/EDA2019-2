@@ -455,16 +455,16 @@ int main(){
         case 9:
             Q09();
             break;
-        case 11:
+        case 10:
             Q10();
             break;
-        case 12:
+        case 11:
             Q11();
             break;
-        case 13:
+        case 12:
             Q12();
             break;
-        case 14:
+        case 13:
             Q13();
             break;
         default:
