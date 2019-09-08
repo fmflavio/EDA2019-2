@@ -4,8 +4,8 @@ typedef struct data{
     int mes, ano;
 } TD;
 typedef struct prod{
-    int cod;
-    float peso, preco;
+    int cod; 
+    float peso, preco; 
     TD *valid;
 } TPROD;
 
@@ -19,7 +19,7 @@ void ordena1(TPROD **prat, int n){
             if(prat[menor].cod!=prat[i].cod){
                 TPROD *aux.cod=prat[menor].cod;
                 prat[menor].cod=prat[i].cod;
-                prat[i].cod=aux.cod;
+                prat[i]=aux;
             }
     }
 }
