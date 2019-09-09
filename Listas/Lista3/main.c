@@ -223,7 +223,6 @@ void Q08(){
 }
 
 int Q07(){
-    printf("Esta eu não consegui resolver! kkkkkkk\n\n");
     char stringA[]={"ACCTGAACTCCCCCC"};
     char stringB[]={"ACCTAGGACCCCCC"};
     int i,j,tamanhoA=strlen(stringA)-1,tamanhoB=strlen(stringB)-1,tamanhoSub=0,contador=0;
@@ -272,7 +271,7 @@ void retira_fim_n(char *str, int n){
         printf("\nerro\n");
         exit(1);
     }
-    char *vetor = (char*)malloc(sizeof(char)*tamanho-n);
+    char *vetor=(char*)malloc(sizeof(char)*tamanho-n);
     if(!vetor)
         exit(1);
     for(i=0;i<tamanho-n;i++)
@@ -292,7 +291,7 @@ void retira_inicio_n(char *str, int n){
         printf("\nerro\n");
         exit(1);
     }
-    char *vetor = (char*)malloc(sizeof(char)*tamanho-n);
+    char *vetor=(char*)malloc(sizeof(char)*tamanho-n);
     if(!vetor)
         exit(1);
     for(i=n;i<tamanho;i++)
