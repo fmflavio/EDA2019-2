@@ -1,5 +1,47 @@
 #include <stdio.h>
 
+int fibo3(int n){
+    if(n<=1)
+        return 1;
+    else
+        return fibo3(n-1)+fibo3(n-2);
+}
+
+int fibo2(int n){
+    int a=1,b=2,c,i;
+    for(i=3;i<=n;i++){
+        c=a+b;
+        a=b;
+        b=c;
+        printf("%d ",c);
+    }
+    return c;
+}
+
+void fibo(){
+    int n;
+    printf("Digite o n fibonascci: ");
+    scanf("%d",&n);
+    if(n<=0)
+        exit(0);
+    printf("\n%d",fibo3(n));
+}
+
+int fatorial2(int n){
+    if(n<=1)
+        return 1;
+    else
+        return n*fatorial2(n-1);
+}
+void fatorial(){
+    int n;
+    printf("Digite o n fatorial: ");
+    scanf("%d",&n);
+    if(n<=0)
+        exit(0);
+    printf("\n%d",fatorial2(n));
+}
+
 void divisores(){
     int n,i;
     while(1){
@@ -102,6 +144,9 @@ int main(){
     printf("2 - Para execicio: \n");
     printf("3 - Para execicio: \n");
     printf("4 - Para execicio: \n");
+    printf("5 - Para execicio: \n");
+    printf("6 - Para execicio: \n");
+    printf("7 - Para execicio: \n");
     scanf("%d",&i);
     switch(i){
         case 1:
@@ -118,6 +163,12 @@ int main(){
             break;
         case 5:
             divisores();
+            break;
+        case 6:
+            fatorial();
+            break;
+        case 7:
+            fibo();
             break;
         default:
             break;
