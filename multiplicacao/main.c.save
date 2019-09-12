@@ -25,9 +25,9 @@ unsigned long kara_vet(unsigned long x, unsigned long y, int base){
     unsigned long d = y / m;
     unsigned long c = y - (d * N);
     /** compute sub expressions **/
-    unsigned long z0 = kara_vet(a, c, base);
-    unsigned long z1 = kara_vet(a + b, c + d, base);
-    unsigned long z2 = kara_vet(b, d, base);
+    unsigned long z0 = Karatsuba(a, c, base);
+    unsigned long z1 = Karatsuba(a + b, c + d, base);
+    unsigned long z2 = Karatsuba(b, d, base);
     return z0+((z1-z0-z2)*m)+(z2*(unsigned long)(pow(base,2*N)));
 }
 
@@ -234,7 +234,7 @@ int main(){
                 printf("\nResultado(long): %lu",multiplicacao(si1,si2,base));
             break;
             case 4:
-                printf("\nResultado(long): %lu",kara_vet(si1,si2,base));
+                printf("\nResultado(long): %lu",Karatsuba(si1,si2,base));
             break;
             default:
             break;
