@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1568329114 source:c:\users\midiacom-desktop-vr\documents\github\eda2019-2\karatsuba\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+

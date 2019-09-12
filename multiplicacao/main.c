@@ -6,32 +6,22 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 int passos=0;
 
-unsigned long kara_vet(unsigned long x, unsigned long y, int base){
-    passos=passos+14;
-    int size1 = getSize(x);
-    int size2 = getSize(y);
-    /** Maximum of lengths of number **/
-    int N = MAX(size1, size2);
-    /** for small values directly Karatsuba **/
-    if (N < base)
-        return x * y;
-    /** max length divided, rounded up **/
-    N = (N / 2) + (N % 2);
-    /** multiplier **/
-    unsigned long m = (unsigned long)pow(base, N);
-    /** compute sub expressions **/
-    unsigned long b = x / m;
-    unsigned long a = x - (b * m);
-    unsigned long d = y / m;
-    unsigned long c = y - (d * N);
-    /** compute sub expressions **/
-    unsigned long z0 = kara_vet(a, c, base);
-    unsigned long z1 = kara_vet(a + b, c + d, base);
-    unsigned long z2 = kara_vet(b, d, base);
-    return z0+((z1-z0-z2)*m)+(z2*(unsigned long)(pow(base,2*N)));
+int contadigitos(int valor, int base){
+    passos=passos+3;
+    int contaDigitos = 0;
+    if (valor == 0)
+        contaDigitos = 1;
+    else
+        while (valor != 0){
+            passos=passos+2;
+            contaDigitos++;
+            valor = valor / base;
+        }
+    return contaDigitos;
 }
 
 /** Function to calculate length or number of digits in a number **/
+/*
 int getSize(long num){
     passos=passos+2;
     int ctr = 0;
@@ -42,11 +32,12 @@ int getSize(long num){
     }
     return ctr;
 }
+*/
 /** Function to multiply two numbers **/
 unsigned long Karatsuba(unsigned long x, unsigned long y, int base){
     passos=passos+14;
-    int size1 = getSize(x);
-    int size2 = getSize(y);
+    int size1 = contadigitos(x);
+    int size2 = contadigitos(y);
     /** Maximum of lengths of number **/
     int N = MAX(size1, size2);
     /** for small values directly Karatsuba **/
@@ -119,19 +110,6 @@ long **multMat(int **mat,int l,int c){
     }
     free(resp);
     return total;
-}
-int contadigitos(int valor, int base){
-    passos=passos+3;
-    int contaDigitos = 0;
-    if (valor == 0)
-        contaDigitos = 1;
-    else
-        while (valor != 0){
-            passos=passos+2;
-            contaDigitos++;
-            valor = valor / base;
-        }
-    return contaDigitos;
 }
 long multiplicacao(int val1,int val2,int base){
     passos=passos+3;
