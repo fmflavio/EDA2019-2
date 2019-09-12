@@ -42,6 +42,54 @@ unsigned long multiply(unsigned long x, unsigned long y, int base){
     return z0+((z1-z0-z2)*m)+(z2*(unsigned long)(pow(base,2*N)));
 }
 
+int **geraMat(int l,int c,int val1,int val2,int base){
+    int i,j;
+    //alocação dinamica
+    int **mat=(int**)malloc(sizeof(int*)*l);
+    for(i=0;i<l;i++)
+        mat[i]=(int*)malloc(sizeof(int)*c);
+    //gera matriz
+    for(i=0;i<l;i++)
+        for(j=0;j<c;j++){
+            if(i==0 && j==0)
+                mat[i][j]=(val1/base)*base;
+            else
+                if(i==0 && j==1)
+                    mat[i][j]=val1%base;
+                else
+                    if(i==1 && j==0)
+                        mat[i][j]=(val2/base)*base;
+                    else
+                        if(i==1 && j==1)
+                            mat[i][j]=val2%base;
+            //imprime a primeira matriz
+            printf("%d ",mat[i][j]);
+        }
+    printf("\n");
+    return mat;
+}
+void **multMat(int **mat,int l,int c){
+    int i,j,resp[l][c],total=0;
+    for(i=0;i<l;i++)
+        for(j=0;j<c;j++){
+            //multiplica os valores da matriz
+            // original geranto a seundária
+            resp[i][j]=mat[0][i]*mat[1][j];
+            printf("%d ",resp[i][j]);
+            //após exibir a matriz secundaria
+            //soma os valores em um inteiro
+            total+=resp[i][j];
+        }
+    printf("\n%d ",total);
+    return resp;
+}
+void multiplicacao(int base){
+    //multiplicação usando matrizes
+    int i,j,l=2,c=2,val1=34,val2=13;//valores
+    int **mat=geraMat(l,c,val1,val2,base);
+    multMat(mat,l,c);
+}
+
 void * multVet(char *s1, char *s2, int t1, int t2,int base){
     int i,j,cont=0,vaium=0,*sf=(int*)malloc(sizeof(int)*(t1*t2));
     for(i=0;i<t1;i++)
@@ -110,9 +158,10 @@ int main(){
     while(1){
         clock_t begin,end;//relacionado ao cronometro
         double time_spent=0.0;//relacionado ao cronometro
+        long si1=0,si2=0;
         fflush(stdin);
         int tipo,base,t1,t2,i;
-        printf("\nDigite\n1-Soma(Proprio)\n2-Multiplicacao(Karatsuba):\n--> ");
+        printf("\nDigite\n1-Soma(Proprio)\n2-Multiplicacao(Karatsuba)\n3-Multiplicacao(Proprio):\n--> ");
         scanf(" %d",&tipo);
         printf("\nDigite a Base: ");
         scanf(" %d",&base);
@@ -134,24 +183,30 @@ int main(){
         }
         printf("\n");
         begin=clock();//inicio do cronometro
-        if(tipo==1){
-             if(t1>=t2)
-                somaVet(s1,s2,t1,t2,base);
-            else
-                somaVet(s2,s1,t2,t1,base);
-
-        } else {
-            long si1=0,si2=0;
-            si1=atol(s1);
-            si2=atol(s2);
-            printf("\nResultado: %lu",multiply(si1,si2,base));
+        switch(tipo){
+            case 1:
+                if(t1>=t2)
+                    somaVet(s1,s2,t1,t2,base);
+                else
+                    somaVet(s2,s1,t2,t1,base);
+            break;
+            case 2:
+                si1=atol(s1);
+                si2=atol(s2);
+                printf("\nResultado: %lu",multiply(si1,si2,base));
+            break;
+            case 3:
+                multiplicacao(base);
+            break;
+            default:
+            break;
+        }
             /*
             if(t1>=t2)
                 multVet(s1,s2,t1,t2,base);
             else
                 multVet(s2,s1,t2,t1,base);
             */
-        }
         end=clock();//fim do cronometro
         //exibe cronometro
         time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
