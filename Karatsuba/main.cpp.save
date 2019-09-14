@@ -248,7 +248,7 @@ int main(){
         cout << "Tempo gasto pelo Karatsuba = " << static_cast<float>(time) / CLOCKS_PER_SEC << endl;
         cout << "Para o Karatsuba, foram realizados " << passos << " passos." << endl;
         passos=0;
-        cout << "\nCronometragem do algoritmo de Multiplicacao Padrao...\n" << endl;
+        cout << "\nCronometragem do algoritmo de Multiplicaço Padrao...\n" << endl;
         start = clock();
         cout << multPadrao(s1, s2, base)+"\n" << endl;
         time = clock() - start;
