@@ -229,14 +229,16 @@ string karatsuba(const string& oper1, const string& oper2, int base){
     string res = incluiNumString(ac, abcd, base);
     res = incluiNumString(res, bd, base);
     res = removeZeroEsquerda(res);
-        // O(1)
+    // O(1)
     if(isNegativo(op1,op2)) res="-"+res;
-    return removeZeroEsquerda(res);
-    //Total = 3(T)+19n+2
+    return res;
+    //Total = 3(T)+19n+3
 }
 
 int main(){
-    printf("Trabalho de ASA 2019-2\nFlavio Miranda de Farias\n");
+    printf("UFF - Pos-graduacao em Computacao\nAnalise e Sintese de Algoritmos - 2019-2\n");
+    printf("Professor Luis Antonio Brasil Kowada\nAluno Flavio Miranda de Farias\n");
+    printf("Trabalho de analise de metodos de multiplicacao de strings numericas\n");
     while(1){
         fflush(stdin);
         //Para gerar multiplos testes de um mesmo valor, mudar o valor inicial
@@ -272,7 +274,7 @@ int main(){
             else karatsuba(s1, s2, base);
             clock_t time = clock() - start;
             cout << "Tempo gasto pelo Karatsuba = " << static_cast<float>(time) / CLOCKS_PER_SEC << " segundos." << endl;
-            cout << "Segundo a funcao 3(T)+19n+2, foram realizados " << acesso << " acessos recursivos." << endl;
+            cout << "Segundo a funcao 3(T)+19n+3, foram realizados " << acesso << " acessos recursivos." << endl;
             acesso=0;
 
             cout << "\nCronometragem do algoritmo de Multiplicacao Padrao..." << endl;
@@ -281,7 +283,7 @@ int main(){
             else multPadrao(s1, s2, base);
             time = clock() - start;
             cout << "Tempo gasto pela Multiplicacao Padrao = " << static_cast<float>(time) / CLOCKS_PER_SEC << " segundos." << endl;
-            cout << "Segundo a funcao 4(T)+19n+2, foram realizados " << acesso << " acessos recursivos." << endl;
+            cout << "Segundo a funcao 4(T)+19n+3, foram realizados " << acesso << " acessos recursivos." << endl;
             acesso=0;
             testes--;
             cout << "---------------------------------------------------------------------";

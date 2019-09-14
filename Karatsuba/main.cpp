@@ -236,7 +236,9 @@ string karatsuba(const string& oper1, const string& oper2, int base){
 }
 
 int main(){
-    printf("Trabalho de ASA 2019-2\nFlavio Miranda de Farias\n");
+    printf("UFF - Pos-graduacao em Computacao\nAnalise e Sintese de Algoritmos - 2019-2.\n");
+    printf("Professor Luis Antonio Brasil Kowada\nAluno Flavio Miranda de Farias\n");
+    printf("Analise de metodos de multiplicacao de strings numericas.\n");
     while(1){
         fflush(stdin);
         //Para gerar multiplos testes de um mesmo valor, mudar o valor inicial
