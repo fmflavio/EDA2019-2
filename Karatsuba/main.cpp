@@ -7,10 +7,19 @@
 #include <algorithm>
 #include <time.h>
 using namespace std;
-int passos=0;
+int acesso=0;
 typedef unsigned int uint32;
 
 enum PaddingType { ESQUERDA, DIREITA };
+
+///
+/// Verifica se há strings negativas
+///
+bool isNegativo(const string& op1, const string& op2) {
+    if ((op1[0] == '-' && op2[0] != '-') || (op1[0] != '-' && op2[0] == '-'))
+        return true;
+    return false;
+}
 
 ///
 /// Preenche um char n vezes na string a direita ou na esquerda
@@ -123,6 +132,8 @@ string mulIntStringByChar(const string& op1, const char op2, int base) {
 /// Aqui ficar a forma padrão recursiva de multiplicação
 ///
 string multPadrao(const string& oper1, const string& oper2, int base) {
+    //responsavel por contra os acessos recursivos
+    acesso++;
     // 2 * O(n)
     if (isZero(oper1) || isZero(oper2))
         return "0";
@@ -147,32 +158,36 @@ string multPadrao(const string& oper1, const string& oper2, int base) {
     string b = op1.substr(n2, n2);
     string c = op2.substr(0, n2);
     string d = op2.substr(n2, n2);
-    // 4 chamadas recursivas
-    string ac = multPadrao(a, c, base);
-    string ad = multPadrao(a, d, base);
-    string bc = multPadrao(b, c, base);
-    string bd = multPadrao(b, d, base);
     // 2 * O(n)
     string _ab = incluiNumString(a, b, base);
     string _cd = incluiNumString(c, d, base);
-    // Terceira chamada recursiva
-    string abcd = multPadrao(_ab, _cd, base);
+    // 4 chamadas recursivas
+    string ac = multPadrao(  a,  c, base);
+    string bc = multPadrao(  b,  c, base);
+    string bd = multPadrao(  b,  d, base);
+    string ad = multPadrao(_ab,_cd, base);
     // 2 * O(n)
-    abcd = retiraNumString(abcd, ac, base);
-    abcd = retiraNumString(abcd, bd, base);
+    ad = retiraNumString(ad, ac, base);
+    ad = retiraNumString(ad, bd, base);
     // 5 * O(n)
     ac = preencherString(ac, n, '0', DIREITA);
-    abcd = preencherString(abcd, n2, '0', DIREITA);
-    string res = incluiNumString(ac, abcd, base);
+    ad = preencherString(ad, n2, '0', DIREITA);
+    string res = incluiNumString(ac, ad, base);
     res = incluiNumString(res, bd, base);
-    return removeZeroEsquerda(res);
+    res = removeZeroEsquerda(res);
+    // O(1)
+    if(isNegativo(op1,op2)) res="-"+res;
+    return res;
+    //Total = 4(T)+19n+3
 }
 
 ///
 /// Executa a multiplicação de karatsuba nas duas cadeias de parâmetros
 /// (ambas representando números)
 ///
-string karatsuba(const string& oper1, const string& oper2, int base) {
+string karatsuba(const string& oper1, const string& oper2, int base){
+    //responsavel por contra os acessos recursivos
+    acesso++;
     // 2 * O(n)
     if (isZero(oper1) || isZero(oper2))
         return "0";
@@ -213,48 +228,64 @@ string karatsuba(const string& oper1, const string& oper2, int base) {
     abcd = preencherString(abcd, n2, '0', DIREITA);
     string res = incluiNumString(ac, abcd, base);
     res = incluiNumString(res, bd, base);
-    return removeZeroEsquerda(res);
+    res = removeZeroEsquerda(res);
+    // O(1)
+    if(isNegativo(op1,op2)) res="-"+res;
+    return res;
+    //Total = 3(T)+19n+3
 }
 
 int main(){
     printf("Trabalho de ASA 2019-2\nFlavio Miranda de Farias\n");
     while(1){
         fflush(stdin);
-        int base,t1,t2,i;
-        printf("\nDigite a Base: ");
+        //Para gerar multiplos testes de um mesmo valor, mudar o valor inicial
+        int base,t1,t2,i,testes=1;
+        //Para não exibir as strings, nao escolher 's'
+        char repetir,exibir,temp;
+        std::string s1,s2;
+        printf("\nDeseja visualizar as strings? (s/n): ");
+        scanf(" %c",&exibir);
+        printf("Digite a Base: ");
         scanf(" %d",&base);
         printf("Tamanho da string 1: ");
         scanf(" %d",&t1);
         printf("Tamanho da string 2: ");
         scanf(" %d",&t2);
-        std::string s1,s2;
-        char repetir,temp;
-        printf("\nString 1(char[]): ");
+        if(exibir=='s') printf("\nString 1(char[]): ");
         for(i=0;i<t1;i++){
             temp=(rand()%base)+48;
             s1.push_back(temp);
-            printf("%c ",temp);
+            if(exibir=='s') printf("%c ",temp);
         }
-        printf("\n\nString 2(char[]): ");
+        if(exibir=='s') printf("\n\nString 2(char[]): ");
         for(i=0;i<t2;i++){
             temp=(rand()%base)+48;
             s2.push_back(temp);
-            printf("%c ",temp);
+            if(exibir=='s') printf("%c ",temp);
         }
-        cout << "\n\nCronometragem do algoritmo Karatsuba...\n" << endl;
-        clock_t start = clock();
-        cout << karatsuba(s1, s2, base)+"\n" << endl;
-        clock_t time = clock() - start;
-        cout << "Tempo gasto pelo Karatsuba = " << static_cast<float>(time) / CLOCKS_PER_SEC << endl;
-        cout << "Para o Karatsuba, foram realizados " << passos << " passos." << endl;
-        passos=0;
-        cout << "\nCronometragem do algoritmo de Multiplicacao Padrao...\n" << endl;
-        start = clock();
-        cout << multPadrao(s1, s2, base)+"\n" << endl;
-        time = clock() - start;
-        cout << "Tempo gasto pela Multiplicacao Padrao = " << static_cast<float>(time) / CLOCKS_PER_SEC << endl;
-        cout << "Para o Karatsuba, foram realizados " << passos << " passos." << endl;
-        passos=0;
+        cout << "\n---------------------------------------------------------------------";
+        while(testes>0){
+            cout<<"\nCronometragem do algoritmo Karatsuba..." << endl;
+            clock_t start = clock();
+            if(exibir=='s') cout << "\nProduto= " << karatsuba(s1, s2, base)+"\n" << endl;
+            else karatsuba(s1, s2, base);
+            clock_t time = clock() - start;
+            cout << "Tempo gasto pelo Karatsuba = " << static_cast<float>(time) / CLOCKS_PER_SEC << " segundos." << endl;
+            cout << "Segundo a funcao 3(T)+19n+3, foram realizados " << acesso << " acessos recursivos." << endl;
+            acesso=0;
+
+            cout << "\nCronometragem do algoritmo de Multiplicacao Padrao..." << endl;
+            start = clock();
+            if(exibir=='s') cout << "\nProduto= " << multPadrao(s1, s2, base)+"\n" << endl;
+            else multPadrao(s1, s2, base);
+            time = clock() - start;
+            cout << "Tempo gasto pela Multiplicacao Padrao = " << static_cast<float>(time) / CLOCKS_PER_SEC << " segundos." << endl;
+            cout << "Segundo a funcao 4(T)+19n+3, foram realizados " << acesso << " acessos recursivos." << endl;
+            acesso=0;
+            testes--;
+            cout << "---------------------------------------------------------------------";
+        }
         printf("\nRepetir? (s/n): ");
         scanf(" %c",&repetir);
         system("cls");
