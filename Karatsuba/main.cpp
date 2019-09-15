@@ -268,7 +268,7 @@ int main(){
         }
         cout << "\n---------------------------------------------------------------------";
         while(testes>0){
-            cout<<"\nCronometragem do algoritmo Karatsuba..." << endl;
+            cout << "\nCronometragem do algoritmo Karatsuba..." << endl;
             clock_t start = clock();
             if(exibir=='s') cout << "\nProduto= " << karatsuba(s1, s2, base)+"\n" << endl;
             else karatsuba(s1, s2, base);
@@ -295,4 +295,3 @@ int main(){
             return 0;
     }
 }
-
